@@ -17,9 +17,9 @@ int b = InputNumbers("Задайте числа для заполнения ма
 
 int InputNumbers(string input) // перевод введённых значений в числа
 {
-  Console.Write(input);
-  int output = Convert.ToInt32(Console.ReadLine());
-  return output;
+    Console.Write(input);
+    int output = Convert.ToInt32(Console.ReadLine());
+    return output;
 }
 Console.WriteLine("Задан массив:");
 
@@ -57,23 +57,27 @@ PrintMatrix(array2D);
 
 int RowsMinSumElements(int[,] matrix, int i) //считаем сумму элементов массива по строкам
 {
-  int sumRows = matrix[i,0];
-  for (int j = 1; j < matrix.GetLength(1); j++)
-  {
-    sumRows += matrix[i,j];
-  }
-  return sumRows;
+    int sum = matrix[i, 0];
+    for (int j = 1; j < matrix.GetLength(1); j++)
+    {
+        sum += matrix[i, j];
+    }
+    return sum;
 }
 
+
 int minSumRows = 0;
-int sumRows = RowsMinSumElements(array2D, 0);
-for (int i = 1; i < array2D.GetLength(0); i++) //сравниваем сумму элементов строк
+int CompareSums = RowsMinSumElements(array2D, 0);
 {
-  int tempSumRows = RowsMinSumElements(array2D, i);
-  if (sumRows > tempSumRows)
-  {
-    sumRows = tempSumRows;
-    minSumRows = i;
-  }
+    for (int i = 1; i < array2D.GetLength(0); i++)
+    {
+        int temp = RowsMinSumElements(array2D, i);
+        if (CompareSums > temp)
+        {
+            CompareSums = temp;
+            minSumRows = i;
+        }
+    }
 }
-Console.WriteLine($"строкa с наименьшей суммой элементов: {minSumRows+1} строка");
+Console.Write($"строкa с наименьшей суммой элементов: {minSumRows + 1} строка");
+
