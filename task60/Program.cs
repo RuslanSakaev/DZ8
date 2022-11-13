@@ -20,7 +20,7 @@ int InputNumbers(string input) // перевод введённых значен
     return output;
 }
 
-int[,,] array3D = CreateArr3dRndRealNum(x, y, z, a, b);
+int[,,] array3D = CreateArr3dRndNum(x, y, z, a, b);
 PrintArray(array3D);
 
 void PrintArray(int[,,] array3D)
@@ -38,20 +38,37 @@ void PrintArray(int[,,] array3D)
     }
 }
 
-int[,,] CreateArr3dRndRealNum(int r, int c, int d, int min, int max)
+int[,,] CreateArr3dRndNum(int r, int c, int d, int min, int max)
 {
     int[,,] arr3d = new int[r, c, d];
-        var rnd = new Random();
     for (int i = 0; i < arr3d.GetLength(0); i++)
     {
         for (int j = 0; j < arr3d.GetLength(1); j++)
         {
-            for (int k = 0; k < arr3d.GetLength(2); k++)
+            int k = 0;
+            while (k < arr3d.GetLength(2))
             {
-                arr3d[i, j, k] = rnd.Next(min, max + 1);
+                int num = new Random().Next(min, max + 1);
+                if (MatchMaking(arr3d, num)) continue;
+                arr3d[i, j, k] = num;
+                k++;
             }
         }
     }
     return arr3d;
 }
 
+bool MatchMaking(int[,,] array, int n)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                if (array[i, j, k] == n) return true;
+            }
+        }
+    }
+    return false;
+}
